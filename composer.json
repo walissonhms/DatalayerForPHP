@@ -1,8 +1,8 @@
 {
-  "name": "walissonmhs/DatalayerForPHP",
+  "name": "walissonhms/datalayer-for-php",
   "description": "The data layer is a persistent abstraction component of your database that PDO",
   "keywords": [
-    "CoffeeCode",
+    "DatalayerForPHP",
     "UpInside",
     "Database",
     "PDO",
