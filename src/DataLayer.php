@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Components\DataLayer;
+namespace WalissonHms\DataLayer;
 
 use Exception;
 use PDO;
