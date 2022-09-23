@@ -1,20 +1,21 @@
 <?php
 
-namespace WalissonHms\DataLayer;
+namespace CoffeeCode\DataLayer;
 
 use DateTime;
+use Exception;
 use PDOException;
 
 /**
  * Trait CrudTrait
- * @package WalissonHms\DataLayer
+ * @package CoffeeCode\DataLayer
  */
 trait CrudTrait
 {
     /**
      * @param array $data
      * @return int|null
-     * @throws PDOException
+     * @throws Exception
      */
     protected function create(array $data): ?int
     {
@@ -27,11 +28,10 @@ trait CrudTrait
             $columns = implode(", ", array_keys($data));
             $values = ":" . implode(", :", array_keys($data));
 
-            $stmt = Connect::getInstance($this->database);
-            $prepare = $stmt->prepare("INSERT INTO {$this->entity} ({$columns}) VALUES ({$values})");
-            $prepare->execute($this->filter($data));
+            $stmt = Connect::getInstance()->prepare("INSERT INTO {$this->entity} ({$columns}) VALUES ({$values})");
+            $stmt->execute($this->filter($data));
 
-            return $stmt->lastInsertId();
+            return Connect::getInstance()->lastInsertId();
         } catch (PDOException $exception) {
             $this->fail = $exception;
             return null;
@@ -43,7 +43,7 @@ trait CrudTrait
      * @param string $terms
      * @param string $params
      * @return int|null
-     * @throws PDOException
+     * @throws Exception
      */
     protected function update(array $data, string $terms, string $params): ?int
     {
@@ -59,11 +59,9 @@ trait CrudTrait
             $dateSet = implode(", ", $dateSet);
             parse_str($params, $params);
 
-            $stmt = Connect::getInstance($this->database);
-            $prepare = $stmt->prepare("UPDATE {$this->entity} SET {$dateSet} WHERE {$terms}");
-            $prepare->execute($this->filter(array_merge($data, $params)));
-
-            return $prepare->rowCount();
+            $stmt = Connect::getInstance()->prepare("UPDATE {$this->entity} SET {$dateSet} WHERE {$terms}");
+            $stmt->execute($this->filter(array_merge($data, $params)));
+            return ($stmt->rowCount() ?? 1);
         } catch (PDOException $exception) {
             $this->fail = $exception;
             return null;
@@ -78,15 +76,14 @@ trait CrudTrait
     public function delete(string $terms, ?string $params): bool
     {
         try {
-            $stmt = Connect::getInstance($this->database);
-            $prepare = $stmt->prepare("DELETE FROM {$this->entity} WHERE {$terms}");
+            $stmt = Connect::getInstance()->prepare("DELETE FROM {$this->entity} WHERE {$terms}");
             if ($params) {
                 parse_str($params, $params);
-                $prepare->execute($params);
+                $stmt->execute($params);
                 return true;
             }
 
-            $prepare->execute();
+            $stmt->execute();
             return true;
         } catch (PDOException $exception) {
             $this->fail = $exception;

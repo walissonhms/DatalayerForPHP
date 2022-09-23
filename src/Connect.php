@@ -1,45 +1,40 @@
 <?php
 
-namespace WalissonHms\DataLayer;
+namespace CoffeeCode\DataLayer;
 
 use PDO;
 use PDOException;
 
 /**
  * Class Connect
- * @package WalissonHms\DataLayer
+ * @package CoffeeCode\DataLayer
  */
 class Connect
 {
-    /** @var array */
-    private static array $instance;
+    /** @var PDO */
+    private static $instance;
 
-    /** @var PDOException|null */
-    private static ?PDOException $error = null;
+    /** @var PDOException */
+    private static $error;
 
     /**
-     * @param array|null $database
-     * @return PDO|null
+     * @return PDO
      */
-    public static function getInstance(array $database = null): ?PDO
+    public static function getInstance(): ?PDO
     {
-        $dbConf = $database ?? DATA_LAYER_CONFIG;
-        $dbName = "{$dbConf["driver"]}-{$dbConf["dbname"]}@{$dbConf["host"]}";
-
-        if (empty(self::$instance[$dbName])) {
+        if (empty(self::$instance)) {
             try {
-                self::$instance[$dbName] = new PDO(
-                    $dbConf["driver"] . ":host=" . $dbConf["host"] . ";dbname=" . $dbConf["dbname"] . ";port=" . $dbConf["port"],
-                    $dbConf["username"],
-                    $dbConf["passwd"],
-                    $dbConf["options"]
+                self::$instance = new PDO(
+                    DATA_LAYER_CONFIG["driver"] . ":host=" . DATA_LAYER_CONFIG["host"] . ";dbname=" . DATA_LAYER_CONFIG["dbname"] . ";port=" . DATA_LAYER_CONFIG["port"],
+                    DATA_LAYER_CONFIG["username"],
+                    DATA_LAYER_CONFIG["passwd"],
+                    DATA_LAYER_CONFIG["options"]
                 );
             } catch (PDOException $exception) {
                 self::$error = $exception;
             }
         }
-
-        return self::$instance[$dbName];
+        return self::$instance;
     }
 
 
