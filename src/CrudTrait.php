@@ -1,6 +1,6 @@
 <?php
 
-namespace CoffeeCode\DataLayer;
+namespace WalissonHms\DataLayer;
 
 use DateTime;
 use Exception;
@@ -8,7 +8,7 @@ use PDOException;
 
 /**
  * Trait CrudTrait
- * @package CoffeeCode\DataLayer
+ * @package WalissonHms\DataLayer
  */
 trait CrudTrait
 {

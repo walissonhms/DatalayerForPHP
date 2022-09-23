@@ -1,13 +1,13 @@
 <?php
 
-namespace CoffeeCode\DataLayer;
+namespace WalissonHms\DataLayer;
 
 use PDO;
 use PDOException;
 
 /**
  * Class Connect
- * @package CoffeeCode\DataLayer
+ * @package WalissonHms\DataLayer
  */
 class Connect
 {
