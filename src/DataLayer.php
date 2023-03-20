@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Components\DataLayer;
+namespace WalissonHms\DataLayer;
 
 use Exception;
 use PDO;
@@ -9,7 +9,7 @@ use stdClass;
 
 /**
  * Class DataLayer
- * @package CoffeeCode\DataLayer
+ * @package WalissonHms\DataLayer
  */
 abstract class DataLayer {
     use CrudTrait;

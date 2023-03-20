@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers\Components\DataLayer;
+namespace WalissonHms\DataLayer;
 
 use PDO;
 use PDOException;
 
 /**
  * Class Connect
- * @package CoffeeCode\DataLayer
+ * @package WalissonHms\DataLayer
  */
-class Connect
-{
+class Connect {
     /** @var PDO */
     private static $instance;
 
@@ -20,8 +19,7 @@ class Connect
     /**
      * @return PDO
      */
-    public static function getInstance(): ?PDO
-    {
+    public static function getInstance(): ?PDO {
         if (empty(self::$instance)) {
             try {
                 self::$instance = new PDO(
@@ -41,22 +39,19 @@ class Connect
     /**
      * @return PDOException|null
      */
-    public static function getError(): ?PDOException
-    {
+    public static function getError(): ?PDOException {
         return self::$error;
     }
 
     /**
      * Connect constructor.
      */
-    private function __construct()
-    {
+    private function __construct() {
     }
 
     /**
      * Connect clone.
      */
-    private function __clone()
-    {
+    private function __clone() {
     }
 }
