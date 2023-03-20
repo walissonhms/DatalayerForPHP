@@ -1,13 +1,13 @@
 <?php
 
-namespace WalissonHms\DataLayer;
+namespace App\Controllers\Components\DataLayer;
 
 use PDO;
 use PDOException;
 
 /**
  * Class Connect
- * @package WalissonHms\DataLayer
+ * @package CoffeeCode\DataLayer
  */
 class Connect
 {
@@ -25,9 +25,9 @@ class Connect
         if (empty(self::$instance)) {
             try {
                 self::$instance = new PDO(
-                    DATA_LAYER_CONFIG["driver"] . ":host=" . DATA_LAYER_CONFIG["host"] . ";dbname=" . DATA_LAYER_CONFIG["dbname"] . ";port=" . DATA_LAYER_CONFIG["port"],
-                    DATA_LAYER_CONFIG["username"],
-                    DATA_LAYER_CONFIG["passwd"],
+                    getenv('DBDRIVER') . ":host=" . getenv('DBHOST') . ";dbname=" . getenv('DBNAME') . ";port=" . getenv('DBPORT'),
+                    getenv('DBUSER'),
+                    getenv('DBPASS'),
                     DATA_LAYER_CONFIG["options"]
                 );
             } catch (PDOException $exception) {

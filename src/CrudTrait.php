@@ -1,6 +1,6 @@
 <?php
 
-namespace WalissonHms\DataLayer;
+namespace App\Controllers\Components\DataLayer;
 
 use DateTime;
 use Exception;
@@ -8,7 +8,7 @@ use PDOException;
 
 /**
  * Trait CrudTrait
- * @package WalissonHms\DataLayer
+ * @package CoffeeCode\DataLayer
  */
 trait CrudTrait
 {
@@ -21,7 +21,8 @@ trait CrudTrait
     {
         if ($this->timestamps) {
             $data["created_at"] = (new DateTime("now"))->format("Y-m-d H:i:s");
-            $data["updated_at"] = $data["created_at"];
+            $data["updated_at"] = '0000-00-00 00:00:00';
+            $data['deleted_at'] = '0000-00-00 00:00:00';
         }
 
         try {
